@@ -20,7 +20,12 @@ class SignUpController extends GetxController {
     if (txtEmail.text.isNotEmpty &&
         txtPassword.text.isNotEmpty &&
         txtName.text.isNotEmpty) {
-      // signUpWithEmailandPassword(txtEmail.text, txtPassword.text, txtName.text);
+      String result = dataController.checkPasswordStrength(txtPassword.text);
+      if (result == 'ok') {
+        mySuccessDialog("go to varification", true);
+      } else {
+        mySuccessDialog(result, false);
+      }
     } else {
       mySuccessDialog("Enter all field", false);
     }

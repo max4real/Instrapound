@@ -17,7 +17,12 @@ class LoginController extends GetxController {
 
   void checkAllField() async {
     if (txtEmail.text.isNotEmpty && txtPassword.text.isNotEmpty) {
-      // signInWithEmail(txtEmail.text, txtPassword.text);
+      String result = dataController.checkPasswordStrength(txtPassword.text);
+      if (result == 'ok') {
+        mySuccessDialog("go to varification", true);
+      } else {
+        mySuccessDialog(result, false);
+      }
     } else {
       mySuccessDialog("Enter all field", false);
     }

@@ -8,23 +8,31 @@ class DataController extends GetxController {
     // TODO: implement onInit
     super.onInit();
   }
-}
 
-bool checkPasswordStrength(String password) {
-  // Define the criteria
-  final bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
-  final bool hasLowercase = password.contains(RegExp(r'[a-z]'));
-  final bool hasDigits = password.contains(RegExp(r'\d'));
-  final bool hasSpecialCharacters =
-      password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
-  final bool hasMinLength = password.length >= 8;
+  String checkPasswordStrength(String password) {
+    // Define the criteria
+    final bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
+    final bool hasLowercase = password.contains(RegExp(r'[a-z]'));
+    final bool hasDigits = password.contains(RegExp(r'\d'));
+    final bool hasSpecialCharacters =
+        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    final bool hasMinLength = password.length >= 8;
 
-  // Return true if all criteria are met, otherwise return false
-  return hasUppercase &&
-      hasLowercase &&
-      hasDigits &&
-      hasSpecialCharacters &&
-      hasMinLength;
+    // Return true if all criteria are met, otherwise return false
+    if (!hasUppercase) {
+      return 'Passowrd Should Contain Uppercase';
+    } else if (!hasLowercase) {
+      return 'Passowrd Should Contain Lowercase';
+    } else if (!hasDigits) {
+      return 'Passowrd Should Contain Numbers';
+    } else if (!hasSpecialCharacters) {
+      return 'Passowrd Should Contain Special Characters';
+    } else if (!hasMinLength) {
+      return 'Passowrd should have at least 8 digits';
+    } else {
+      return 'ok';
+    }
+  }
 }
 
 void dismissKeyboard() {
@@ -116,7 +124,7 @@ void mySuccessDialog(String message, bool type_) {
             const SizedBox(height: 16),
             Text(
               message,
-              style:  TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 color: secondary,
               ),
