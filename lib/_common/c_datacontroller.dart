@@ -9,7 +9,7 @@ class DataController extends GetxController {
     super.onInit();
   }
 
-  String checkPasswordStrength(String password) {
+  String getFeedbackMessage(String password) {
     // Define the criteria
     final bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
     final bool hasLowercase = password.contains(RegExp(r'[a-z]'));
@@ -33,10 +33,59 @@ class DataController extends GetxController {
       return 'ok';
     }
   }
+
+  Future<String> checkPassowrdScore(String password) async {
+    String url =
+        'https://password-strength-backend.onrender.com/classify_password?password=$password';
+    GetConnect client = GetConnect(timeout: const Duration(seconds: 30));
+    try {
+      final response = await client.get(url);
+      if (response.isOk) {
+        String score = response.body['strength_score'].toString();
+
+        print(response.bodyString);
+        return score;
+      } else {
+        return '';
+      }
+    } catch (e) {}
+    return '';
+  }
 }
 
 void dismissKeyboard() {
   FocusManager.instance.primaryFocus?.unfocus();
+}
+
+void myMessageLoadingDialog(String message) {
+  Get.dialog(
+    Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              message,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    ),
+    barrierDismissible: false,
+  );
 }
 
 void myMessageDialog(String message) {
@@ -90,7 +139,7 @@ void myMessageDialog(String message) {
   );
 }
 
-void mySuccessDialog(String message, bool type_) {
+void mySuccessDialog(String message, bool type_, Color color) {
   Get.dialog(
     Dialog(
       backgroundColor: const Color(0XFF262D39),
@@ -106,7 +155,7 @@ void mySuccessDialog(String message, bool type_) {
               height: 40,
               width: 40,
               decoration: BoxDecoration(
-                color: type_ ? Colors.green : Colors.redAccent,
+                color: color,
                 shape: BoxShape.circle,
               ),
               child: type_

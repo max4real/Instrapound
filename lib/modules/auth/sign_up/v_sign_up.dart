@@ -34,7 +34,7 @@ class SignUpPage extends StatelessWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 350,
+                        height: 480,
                         decoration: BoxDecoration(
                             color: secondary,
                             borderRadius: BorderRadius.circular(40)),
@@ -44,7 +44,7 @@ class SignUpPage extends StatelessWidget {
                             vertical: 10,
                           ),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "SIGN UP",
@@ -88,6 +88,9 @@ class SignUpPage extends StatelessWidget {
                                 onTapOutside: (event) {
                                   dismissKeyboard();
                                 },
+                                onChanged: (value) {
+                                  controller.checkEmailOnChange();
+                                },
                                 cursorWidth: 1,
                                 cursorColor: secondary,
                                 cursorHeight: 15,
@@ -106,6 +109,36 @@ class SignUpPage extends StatelessWidget {
                                         size: 20, color: Colors.white),
                                     hintText: "Email"),
                               ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: ValueListenableBuilder(
+                                  valueListenable: controller.xValidEmail,
+                                  builder: (context, value, child) {
+                                    return Row(
+                                      children: [
+                                        value
+                                            ? const Icon(
+                                                Icons.check_box_outlined,
+                                                size: 15,
+                                                color: Colors.green)
+                                            : const Icon(
+                                                Icons.check_box_outline_blank,
+                                                size: 15,
+                                              ),
+                                        Text(
+                                          'Valid Email',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: onBackground,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12,
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -118,6 +151,9 @@ class SignUpPage extends StatelessWidget {
                                     maxLines: 1,
                                     onTapOutside: (event) {
                                       dismissKeyboard();
+                                    },
+                                    onChanged: (value) {
+                                      controller.checkPassowrdOnChange();
                                     },
                                     cursorWidth: 1,
                                     cursorColor: secondary,
@@ -155,6 +191,210 @@ class SignUpPage extends StatelessWidget {
                                     ),
                                   );
                                 },
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  children: [
+                                    ValueListenableBuilder(
+                                      valueListenable: controller.xhasUppercase,
+                                      builder: (context, value, child) {
+                                        return Row(
+                                          children: [
+                                            value
+                                                ? const Icon(
+                                                    Icons.check_box_outlined,
+                                                    size: 15,
+                                                    color: Colors.green)
+                                                : const Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    size: 15,
+                                                  ),
+                                            Text(
+                                              'Has Uppercase',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: onBackground,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    ValueListenableBuilder(
+                                      valueListenable: controller.xhasLowercase,
+                                      builder: (context, value, child) {
+                                        return Row(
+                                          children: [
+                                            value
+                                                ? const Icon(
+                                                    Icons.check_box_outlined,
+                                                    size: 15,
+                                                    color: Colors.green)
+                                                : const Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    size: 15,
+                                                  ),
+                                            Text(
+                                              'Has Lowercase',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: onBackground,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    ValueListenableBuilder(
+                                      valueListenable: controller.xhasDigits,
+                                      builder: (context, value, child) {
+                                        return Row(
+                                          children: [
+                                            value
+                                                ? const Icon(
+                                                    Icons.check_box_outlined,
+                                                    size: 15,
+                                                    color: Colors.green)
+                                                : const Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    size: 15,
+                                                  ),
+                                            Text(
+                                              'Has Numbers',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: onBackground,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    ValueListenableBuilder(
+                                      valueListenable:
+                                          controller.xhasSpecialCharacters,
+                                      builder: (context, value, child) {
+                                        return Row(
+                                          children: [
+                                            value
+                                                ? const Icon(
+                                                    Icons.check_box_outlined,
+                                                    size: 15,
+                                                    color: Colors.green)
+                                                : const Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    size: 15,
+                                                  ),
+                                            Text(
+                                              'Has Special Characters (eg. *@#%&)',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: onBackground,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    ValueListenableBuilder(
+                                      valueListenable: controller.xhasMinLength,
+                                      builder: (context, value, child) {
+                                        return Row(
+                                          children: [
+                                            value
+                                                ? const Icon(
+                                                    Icons.check_box_outlined,
+                                                    size: 15,
+                                                    color: Colors.green,
+                                                  )
+                                                : const Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    size: 15,
+                                                  ),
+                                            Text(
+                                              'Has 8 Digits',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: onBackground,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    Row(
+                                      children: [
+                                        ValueListenableBuilder(
+                                          valueListenable:
+                                              controller.xScoreLoading,
+                                          builder: (context, value, child) {
+                                            if (value) {
+                                              return const SizedBox(
+                                                width: 10,
+                                                height: 10,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                ),
+                                              );
+                                            } else {
+                                              return ValueListenableBuilder(
+                                                valueListenable:
+                                                    controller.xvalidScore,
+                                                builder:
+                                                    (context, value, child) {
+                                                  if (value) {
+                                                    return const Icon(
+                                                      Icons.check_box_outlined,
+                                                      size: 15,
+                                                      color: Colors.green,
+                                                    );
+                                                  } else {
+                                                    return const Icon(
+                                                      Icons
+                                                          .check_box_outline_blank,
+                                                      size: 15,
+                                                    );
+                                                  }
+                                                },
+                                              );
+                                            }
+                                          },
+                                        ),
+                                        ValueListenableBuilder(
+                                          valueListenable: controller.score,
+                                          builder: (context, value, child) {
+                                            return Text(
+                                              'Password Score - ' + value,
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: onBackground,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(height: 20),
                               ElevatedButton(

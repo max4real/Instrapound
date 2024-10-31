@@ -17,14 +17,14 @@ class LoginController extends GetxController {
 
   void checkAllField() async {
     if (txtEmail.text.isNotEmpty && txtPassword.text.isNotEmpty) {
-      String result = dataController.checkPasswordStrength(txtPassword.text);
+      String result = dataController.getFeedbackMessage(txtPassword.text);
       if (result == 'ok') {
-        mySuccessDialog("go to varification", true);
+        mySuccessDialog("go to varification", true, Colors.green);
       } else {
-        mySuccessDialog(result, false);
+        mySuccessDialog(result, false, Colors.red);
       }
     } else {
-      mySuccessDialog("Enter all field", false);
+      mySuccessDialog("Enter all field", false, Colors.red);
     }
   }
 }
