@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instrapound/modules/auth/captcha/v_captcha.dart';
 
 import '../../../_common/c_datacontroller.dart';
 
@@ -37,7 +38,10 @@ class SignUpController extends GetxController {
       if (xValidEmail.value) {
         String message = dataController.getFeedbackMessage(txtPassword.text);
         if (message == 'ok') {
-          //preceed
+          dataController.name = txtName.text;
+          dataController.email = txtName.text;
+          dataController.password = txtName.text;
+          Get.to(() => const CaptchaPage());
         } else {
           mySuccessDialog(message, false, Colors.red);
         }

@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 import 'package:instrapound/_common/c_theme_controller.dart';
 
 class DataController extends GetxController {
+  String name = '';
+  String email = '';
+  String password = '';
+
   @override
   void onInit() {
     // TODO: implement onInit
