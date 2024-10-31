@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_captcha/local_captcha.dart';
 
-import '../../../_common/c_datacontroller.dart';
+import '../../../../_common/c_datacontroller.dart';
 
-class CaptchaPageController extends GetxController {
+class SignUpCaptchaController extends GetxController {
   LocalCaptchaController localCaptchaController = LocalCaptchaController();
 
   Timer captchaTimer = Timer(

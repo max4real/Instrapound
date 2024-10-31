@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:instrapound/_common/c_theme_controller.dart';
-import 'package:instrapound/modules/auth/captcha/c_captcha.dart';
+import 'package:instrapound/modules/auth/sign_up/captcha/c_captcha.dart';
 import 'package:local_captcha/local_captcha.dart';
 
-import '../../../_common/c_datacontroller.dart';
+import '../../../../_common/c_datacontroller.dart';
 
-class CaptchaPage extends StatelessWidget {
-  const CaptchaPage({super.key});
+class SignUpCaptchaPage extends StatelessWidget {
+  const SignUpCaptchaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    CaptchaPageController controller = Get.put(CaptchaPageController());
+    SignUpCaptchaController controller = Get.put(SignUpCaptchaController());
     return Scaffold(
       backgroundColor: const Color(0XFF262D39),
       appBar: AppBar(
