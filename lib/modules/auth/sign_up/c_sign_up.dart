@@ -39,8 +39,8 @@ class SignUpController extends GetxController {
         String message = dataController.getFeedbackMessage(txtPassword.text);
         if (message == 'ok') {
           dataController.name = txtName.text;
-          dataController.email = txtName.text;
-          dataController.password = txtName.text;
+          dataController.email = txtEmail.text;
+          dataController.password = txtPassword.text;
           Get.to(() => const SignUpCaptchaPage());
         } else {
           mySuccessDialog(message, false, Colors.red);

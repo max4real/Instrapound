@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:email_otp/email_otp.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instrapound/_common/c_datacontroller.dart';
@@ -36,16 +35,16 @@ class VerificationController extends GetxController {
     EmailOTP.config(
       appName: 'Instrapound - Register OTP',
       otpType: OTPType.numeric,
-      expiry: 30000,
+      expiry: 60000,
       emailTheme: EmailTheme.v3,
       appEmail: 'instrapound@gmail.com',
       otpLength: 6,
     );
 
-    startCountdown();
+    // startCountdown();
     strEmail = dataController.email;
     print(strEmail);
-    // await sendOTP(strEmail);
+    await sendOTP(strEmail);
     // signUpWithEmailandPassword(
     //     dataController.email, dataController.password, dataController.name);
   }
@@ -61,40 +60,6 @@ class VerificationController extends GetxController {
     }
     // }
     return result;
-  }
-
-  Future<void> signUpWithEmailandPassword(
-      String email, String password, String name) async {
-    try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-
-      if (FirebaseAuth.instance.currentUser != null) {
-        await FirebaseAuth.instance.currentUser?.sendEmailVerification();
-      }
-    } catch (e) {
-      if (e is FirebaseAuthException) {
-        switch (e.code) {
-          case 'email-already-in-use':
-            mySuccessDialog(
-                "The email address is already in use.", false, Colors.red);
-            break;
-          case 'weak-password':
-            mySuccessDialog(
-                "The password provided is too weak.", false, Colors.red);
-            break;
-          case 'invalid-email':
-            mySuccessDialog(
-                "The email address is badly formatted.", false, Colors.red);
-            break;
-          default:
-            mySuccessDialog("Error: ${e.message}", false, Colors.red);
-            break;
-        }
-      } else {
-        print("Error: $e");
-      }
-    }
   }
 
   void startCountdown() {
@@ -145,8 +110,6 @@ class VerificationController extends GetxController {
     //   codeSent: (String verificationId, int? resendToken) {},
     //   codeAutoRetrievalTimeout: (String verificationId) {},
     // );
-
-    // await FirebaseAuth.instance.currentUser?.sendEmailVerification();
   }
 
   void sendCodeAgain() {
