@@ -110,7 +110,7 @@ class VerificationPage extends StatelessWidget {
                 builder: (context, value, child) {
                   return Text(
                     controller.formatTime(value),
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.blue),
                   );
                 },
               ),
@@ -122,7 +122,7 @@ class VerificationPage extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(
                       text: controller.strEmail,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.blue),
                     ),
                     const TextSpan(text: '. You can check your inbox.'),
                   ],

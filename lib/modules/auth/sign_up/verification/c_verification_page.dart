@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import 'package:instrapound/_common/c_datacontroller.dart';
 
 class VerificationController extends GetxController {
-  DataController dataController = Get.find();
-
   String strEmail = '';
 
   TextEditingController pinController = TextEditingController();
@@ -32,7 +30,9 @@ class VerificationController extends GetxController {
     timer?.cancel();
   }
 
-  void initLoad() {
+  void initLoad() async {
+    DataController dataController = Get.find();
+
     EmailOTP.config(
       appName: 'Instrapound - Register OTP',
       otpType: OTPType.numeric,
@@ -44,8 +44,23 @@ class VerificationController extends GetxController {
 
     startCountdown();
     strEmail = dataController.email;
+    print(strEmail);
+    // await sendOTP(strEmail);
     // signUpWithEmailandPassword(
     //     dataController.email, dataController.password, dataController.name);
+  }
+
+  Future<bool> sendOTP(String email) async {
+    bool result = false;
+    // if(otpRefreshCooldown.value<=0){
+    // _resetOtpTimer();
+    try {
+      result = await EmailOTP.sendOTP(email: email);
+    } catch (e1) {
+      print(e1);
+    }
+    // }
+    return result;
   }
 
   Future<void> signUpWithEmailandPassword(

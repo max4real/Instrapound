@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instrapound/modules/auth/sign_up/verification/v_verification_page.dart';
 import 'package:local_captcha/local_captcha.dart';
 
 import '../../../../_common/c_datacontroller.dart';
@@ -81,6 +82,6 @@ class SignUpCaptchaController extends GetxController {
   }
 
   void onClickNext() {
-    // Get.to(()=>const );
+    Get.to(()=>const VerificationPage());
   }
 }
