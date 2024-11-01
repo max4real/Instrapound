@@ -82,6 +82,12 @@ class SignUpCaptchaController extends GetxController {
   }
 
   void onClickNext() {
-    Get.to(()=>const VerificationPage());
+    Get.to(() => const VerificationPage())?.whenComplete(() {
+      SignUpCaptchaController signUpCaptchaController = Get.find();
+      signUpCaptchaController.xValidCaptcha.value = false;
+      txtCaptcha.clear();
+      localCaptchaController.refresh();
+      _resetCaptchaTimer();
+    });
   }
 }

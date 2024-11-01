@@ -68,7 +68,7 @@ class VerificationPage extends StatelessWidget {
                     // },
                     onCompleted: (pin) {
                       // debugPrint('onCompleted: $pin');
-                      controller.varifyEmail(pin);
+                      controller.varifyOTP(pin);
                     },
                     onChanged: (value) {
                       // debugPrint('onChanged: $value');

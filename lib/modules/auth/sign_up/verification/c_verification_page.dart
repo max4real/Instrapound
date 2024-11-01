@@ -41,24 +41,33 @@ class VerificationController extends GetxController {
       otpLength: 6,
     );
 
-    // startCountdown();
+    // EmailOTP.setTemplate(
+    //   template: '''
+    // <div style="background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;">
+    //   <div style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    //     <h1 style="color: #333;">{{appName}}</h1>
+    //     <p style="color: #333;">Your OTP is <strong>{{otp}}</strong></p>
+    //     <p style="color: #333;">This OTP is valid for 1 minutes.</p>
+    //     <p style="color: #333;">Thank you for using our service.</p>
+    //   </div>
+    // </div>
+    // ''',
+    // );
+
     strEmail = dataController.email;
     print(strEmail);
     await sendOTP(strEmail);
-    // signUpWithEmailandPassword(
-    //     dataController.email, dataController.password, dataController.name);
   }
 
   Future<bool> sendOTP(String email) async {
     bool result = false;
-    // if(otpRefreshCooldown.value<=0){
-    // _resetOtpTimer();
+    startCountdown();
+
     try {
       result = await EmailOTP.sendOTP(email: email);
     } catch (e1) {
       print(e1);
     }
-    // }
     return result;
   }
 
@@ -79,7 +88,18 @@ class VerificationController extends GetxController {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
-  Future<void> varifyEmail(String? pin) async {
+  Future<void> varifyOTP(String pin) async {
+    bool result = false;
+    try {
+      result = EmailOTP.verifyOTP(otp: pin);
+    } catch (e1) {
+      print(e1);
+    }
+    if (result) {
+      myMessageDialog("OTP True");
+    } else {
+      myMessageDialog("OTP False");
+    }
     // String url = ApiEndpoint.baseUrl2 + ApiEndpoint.authVerifyEmail2;
     // xFetching.value = false;
     // GetConnect client = GetConnect(timeout: const Duration(seconds: 10));
@@ -116,7 +136,7 @@ class VerificationController extends GetxController {
     if (xSendAgain.value) {
       xSendAgain.value = false;
       print('send again');
-      // sendOTPAgain();
+      sendOTP(strEmail);
       remainingSeconds.value = 60;
       startCountdown();
     } else {
